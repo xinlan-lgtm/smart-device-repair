@@ -53,8 +53,6 @@
 
 ## 📸 项目截图
 
-> *以下为占位图，请替换为实际项目截图*
-
 | 角色选择 | 提交报修 | AI分析结果 |
 |:---:|:---:|:---:|
 | ![角色选择](./screenshots/login.png) | ![提交报修](./screenshots/repair.png) | ![AI分析](./screenshots/ai-result.png) |
