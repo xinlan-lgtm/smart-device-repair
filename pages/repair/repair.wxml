@@ -21,6 +21,15 @@
         bindinput="onDeviceCodeInput"
       />
     </view>
+    <view class="form-item">
+      <text class="form-label">工号 <text class="required">*</text></text>
+      <input
+        class="form-input"
+        placeholder="请输入您的工号"
+        value="{{workerId}}"
+        bindinput="onWorkerIdInput"
+      />
+    </view>
   </view>
 
   <!-- 故障描述区域 -->

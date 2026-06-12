@@ -6,3 +6,68 @@
 .order-card {
   position: relative;
 }
+
+/* 卡片头部：工单号 + 状态 */
+.order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.order-id {
+  font-size: 24rpx;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.status-badge {
+  padding: 4rpx 16rpx;
+  font-size: 22rpx;
+  border-radius: 8rpx;
+  font-weight: 500;
+}
+
+/* 设备信息 */
+.order-device {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.device-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.device-code {
+  font-size: 24rpx;
+  color: #9CA3AF;
+}
+
+/* 故障简述 */
+.order-desc {
+  font-size: 26rpx;
+  color: #6B7280;
+  margin-bottom: 16rpx;
+  line-height: 1.5;
+}
+
+/* 底部 */
+.order-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-time {
+  font-size: 22rpx;
+  color: #9CA3AF;
+}
+
+.order-arrow {
+  font-size: 28rpx;
+  color: #D1D5DB;
+}

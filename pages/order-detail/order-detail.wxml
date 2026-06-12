@@ -7,14 +7,114 @@
 
   <!-- 工单详情内容 -->
   <block wx:if="{{order}}">
-    <!-- 设备信息 -->
-    <view class="card">
-      <text>TODO: P6阶段实现工单详情展示</text>
+    <!-- 头部：工单号 + 状态 -->
+    <view class="card detail-header">
+      <view class="header-row">
+        <text class="order-id">{{order.id}}</text>
+        <view class="status-badge" style="background-color: {{order.statusColor}}20; color: {{order.statusColor}};">
+          {{order.statusLabel}}
+        </view>
+      </view>
+      <view class="header-time">
+        <text class="time-label">提交时间：</text>
+        <text>{{order.createdText}}</text>
+      </view>
     </view>
 
-    <!-- AI分析结果卡片 -->
+    <!-- 提交人信息 -->
     <view class="card">
-      <text>TODO: AI分析结果展示</text>
+      <view class="card-title">人员信息</view>
+      <view class="info-grid">
+        <view class="info-item">
+          <text class="info-label">工号</text>
+          <text class="info-value">{{order.workerId || '-'}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">提交人</text>
+          <text class="info-value">{{order.submitterName}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 设备信息 -->
+    <view class="card">
+      <view class="card-title">设备信息</view>
+      <view class="info-grid">
+        <view class="info-item">
+          <text class="info-label">设备名称</text>
+          <text class="info-value">{{order.deviceName}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">设备编号</text>
+          <text class="info-value">{{order.deviceCode}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 故障描述 -->
+    <view class="card">
+      <view class="card-title">故障描述</view>
+      <text class="fault-desc">{{order.faultDesc}}</text>
+    </view>
+
+    <!-- 现场照片 -->
+    <view wx:if="{{order.previewImages.length > 0}}" class="card">
+      <view class="card-title">现场照片</view>
+      <view class="detail-images">
+        <image
+          wx:for="{{order.previewImages}}"
+          wx:key="index"
+          src="{{item}}"
+          mode="aspectFill"
+          class="detail-image"
+          data-url="{{item}}"
+          bindtap="onPreviewImage"
+        />
+      </view>
+    </view>
+
+    <!-- AI分析结果 -->
+    <view wx:if="{{order.aiFaultType}}" class="card ai-card">
+      <view class="card-title">🤖 AI分析结果</view>
+      <view class="ai-row" wx:if="{{order.aiFaultType}}">
+        <text class="ai-label">故障类型</text>
+        <text class="ai-value">{{order.aiFaultType}}</text>
+      </view>
+      <view class="ai-row" wx:if="{{order.aiUrgency}}">
+        <text class="ai-label">紧急程度</text>
+        <text class="ai-value">{{order.aiUrgency}}</text>
+      </view>
+      <view class="ai-row" wx:if="{{order.aiSuggestion}}">
+        <text class="ai-label">维修建议</text>
+        <text class="ai-value">{{order.aiSuggestion}}</text>
+      </view>
+    </view>
+
+    <!-- 状态流转日志 -->
+    <view wx:if="{{order.statusLog && order.statusLog.length > 0}}" class="card">
+      <view class="card-title">处理记录</view>
+      <view class="timeline">
+        <view wx:for="{{order.statusLog}}" wx:key="index" class="timeline-item">
+          <view class="timeline-dot"></view>
+          <view class="timeline-content">
+            <text class="timeline-status">{{item.status === 'pending' ? '提交报修' : (item.status === 'processing' ? '开始处理' : '处理完成')}}</text>
+            <text class="timeline-time">{{item.timeText}}</text>
+            <text class="timeline-operator">操作人：{{item.operator}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部时间 -->
+    <view class="card time-card">
+      <view class="time-row">
+        <text class="time-label">创建时间</text>
+        <text>{{order.createdText}}</text>
+      </view>
+      <view class="time-row" wx:if="{{order.updatedText !== order.createdText}}">
+        <text class="time-label">最后更新</text>
+        <text>{{order.updatedText}}</text>
+      </view>
     </view>
 
     <!-- 管理员操作按钮 -->
@@ -26,5 +126,36 @@
   </block>
 
   <!-- 状态修改弹窗 -->
-  <!-- TODO: P6阶段实现状态修改弹窗 -->
+  <view wx:if="{{showStatusModal}}" class="modal-mask" bindtap="onCloseStatusModal">
+    <view class="modal-content" catchtap="prevent">
+      <text class="modal-title">修改工单状态</text>
+      <view class="status-options">
+        <view
+          class="status-option {{selectedStatus === 'pending' ? 'active' : ''}}"
+          data-status="pending"
+          bindtap="onStatusSelect"
+        >
+          <text>待处理</text>
+        </view>
+        <view
+          class="status-option {{selectedStatus === 'processing' ? 'active' : ''}}"
+          data-status="processing"
+          bindtap="onStatusSelect"
+        >
+          <text>处理中</text>
+        </view>
+        <view
+          class="status-option {{selectedStatus === 'completed' ? 'active' : ''}}"
+          data-status="completed"
+          bindtap="onStatusSelect"
+        >
+          <text>已完成</text>
+        </view>
+      </view>
+      <view class="modal-actions">
+        <button class="btn-cancel" bindtap="onCloseStatusModal">取消</button>
+        <button class="btn-confirm" bindtap="onConfirmStatus">确认</button>
+      </view>
+    </view>
+  </view>
 </view>

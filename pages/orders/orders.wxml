@@ -22,8 +22,25 @@
       data-id="{{item.id}}"
       bindtap="onOrderTap"
     >
-      <!-- TODO: P5阶段使用 order-card 组件 -->
-      <text>工单卡片（待P5实现）</text>
+      <!-- 卡片头部：工单号 + 状态标签 -->
+      <view class="order-header">
+        <text class="order-id">{{item.id}}</text>
+        <view class="status-badge" style="background-color: {{item.statusColor}}20; color: {{item.statusColor}};">
+          {{item.statusLabel}}
+        </view>
+      </view>
+      <!-- 设备信息 -->
+      <view class="order-device">
+        <text class="device-name">{{item.deviceName}}</text>
+        <text class="device-code">{{item.deviceCode}}</text>
+      </view>
+      <!-- 故障简述 -->
+      <view class="order-desc text-ellipsis">{{item.faultDesc}}</view>
+      <!-- 底部：时间 -->
+      <view class="order-footer">
+        <text class="order-time">{{item.timeText}}</text>
+        <text class="order-arrow">&gt;</text>
+      </view>
     </view>
   </block>
 

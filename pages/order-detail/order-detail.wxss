@@ -1,4 +1,283 @@
 /* pages/order-detail/order-detail.wxss - 工单详情页样式 */
+
+/* ===== 头部 ===== */
+.detail-header {
+  padding-top: 32rpx;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.order-id {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1F2937;
+}
+
+.status-badge {
+  padding: 6rpx 20rpx;
+  font-size: 24rpx;
+  border-radius: 8rpx;
+  font-weight: 600;
+}
+
+.header-time {
+  font-size: 24rpx;
+  color: #6B7280;
+}
+
+.time-label {
+  color: #9CA3AF;
+}
+
+/* ===== 卡片标题 ===== */
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1F2937;
+  margin-bottom: 20rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 1rpx solid #F3F4F6;
+}
+
+/* ===== 信息网格 ===== */
+.info-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info-item {
+  width: 50%;
+  margin-bottom: 16rpx;
+}
+
+.info-label {
+  display: block;
+  font-size: 24rpx;
+  color: #9CA3AF;
+  margin-bottom: 6rpx;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #1F2937;
+  font-weight: 500;
+}
+
+/* ===== 故障描述 ===== */
+.fault-desc {
+  font-size: 28rpx;
+  color: #4B5563;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+/* ===== 图片 ===== */
+.detail-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.detail-image {
+  width: 210rpx;
+  height: 210rpx;
+  border-radius: 12rpx;
+}
+
+/* ===== AI分析卡片 ===== */
+.ai-card {
+  background-color: #F0F9FF;
+  border: 1rpx solid #BAE6FD;
+}
+
+.ai-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.ai-label {
+  font-size: 26rpx;
+  color: #6B7280;
+  width: 140rpx;
+  flex-shrink: 0;
+}
+
+.ai-value {
+  font-size: 26rpx;
+  color: #1F2937;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* ===== 时间线 ===== */
+.timeline {
+  padding-left: 16rpx;
+}
+
+.timeline-item {
+  display: flex;
+  padding-bottom: 24rpx;
+  position: relative;
+}
+
+.timeline-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 7rpx;
+  top: 28rpx;
+  bottom: 0;
+  width: 2rpx;
+  background-color: #E5E7EB;
+}
+
+.timeline-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  background-color: #1A56DB;
+  margin-right: 20rpx;
+  margin-top: 6rpx;
+  flex-shrink: 0;
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-status {
+  display: block;
+  font-size: 28rpx;
+  color: #1F2937;
+  font-weight: 500;
+  margin-bottom: 4rpx;
+}
+
+.timeline-time {
+  display: block;
+  font-size: 24rpx;
+  color: #9CA3AF;
+  margin-bottom: 2rpx;
+}
+
+.timeline-operator {
+  font-size: 24rpx;
+  color: #9CA3AF;
+}
+
+/* ===== 底部时间 ===== */
+.time-card {
+  padding: 20rpx 24rpx;
+}
+
+.time-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
+  font-size: 26rpx;
+  color: #4B5563;
+}
+
+.time-row .time-label {
+  color: #9CA3AF;
+}
+
+/* ===== 操作按钮 ===== */
 .action-area {
   padding: 24rpx;
+  padding-bottom: 48rpx;
+}
+
+/* ===== 状态修改弹窗 ===== */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  width: 100%;
+  background-color: #FFFFFF;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 32rpx 24rpx 48rpx;
+}
+
+.modal-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1F2937;
+  text-align: center;
+  margin-bottom: 32rpx;
+}
+
+.status-options {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 36rpx;
+}
+
+.status-option {
+  flex: 1;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F9FAFB;
+  border-radius: 12rpx;
+  font-size: 26rpx;
+  color: #6B7280;
+  border: 2rpx solid transparent;
+}
+
+.status-option.active {
+  background-color: #EBF5FF;
+  color: #1A56DB;
+  border-color: #1A56DB;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.btn-cancel {
+  flex: 1;
+  height: 88rpx;
+  background-color: #F3F4F6;
+  color: #6B7280;
+  font-size: 30rpx;
+  border-radius: 16rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-confirm {
+  flex: 1;
+  height: 88rpx;
+  background-color: #1A56DB;
+  color: #FFFFFF;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 16rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -63,6 +63,7 @@ function createOrder(data) {
     id: util.generateOrderId(seq),
     deviceName: data.deviceName,
     deviceCode: data.deviceCode,
+    workerId: data.workerId || '',
     faultDesc: data.faultDesc,
     images: data.images || [],
     aiFaultType: data.aiFaultType || '',
