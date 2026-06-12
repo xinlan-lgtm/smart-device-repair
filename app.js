@@ -31,6 +31,11 @@ App({
     return this.globalData.role === 'admin'
   },
 
+  // 判断是否为复查员
+  isInspector() {
+    return this.globalData.role === 'inspector'
+  },
+
   // 设置用户身份（登录/切换角色）
   setUser(userInfo) {
     this.globalData.userInfo = userInfo

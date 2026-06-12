@@ -4,14 +4,23 @@
 const ORDER_STATUS = {
   PENDING: 'pending',         // 待处理
   PROCESSING: 'processing',   // 处理中
-  COMPLETED: 'completed'      // 已完成
+  COMPLETED: 'completed',     // 已完成
+  VERIFIED: 'verified'        // 已验收
 }
 
 // 状态显示映射
 const STATUS_MAP = {
   pending: { label: '待处理', color: '#F59E0B' },
   processing: { label: '处理中', color: '#3B82F6' },
-  completed: { label: '已完成', color: '#10B981' }
+  completed: { label: '已完成', color: '#10B981' },
+  verified: { label: '已验收', color: '#059669' }
+}
+
+// 角色枚举
+const ROLE = {
+  WORKER: 'worker',
+  ADMIN: 'admin',
+  INSPECTOR: 'inspector'
 }
 
 // 紧急程度枚举
@@ -47,6 +56,7 @@ const IMAGE_LIMIT = {
 module.exports = {
   ORDER_STATUS,
   STATUS_MAP,
+  ROLE,
   URGENCY_LEVEL,
   URGENCY_COLOR,
   DEEPSEEK_CONFIG,

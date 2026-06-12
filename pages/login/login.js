@@ -3,7 +3,7 @@ const app = getApp()
 
 Page({
   data: {
-    selectedRole: '' // 'worker' | 'admin'
+    selectedRole: '' // 'worker' | 'admin' | 'inspector'
   },
 
   onLoad() {
@@ -26,12 +26,19 @@ Page({
       wx.showToast({ title: '请选择身份', icon: 'none' })
       return
     }
+    var roleNames = { worker: '工人', admin: '管理员', inspector: '复查员' }
+    var roleIds = { worker: 'WK001', admin: 'ADM001', inspector: 'INS001' }
     const userInfo = {
-      id: selectedRole === 'admin' ? 'ADM001' : 'WK001',
-      name: selectedRole === 'admin' ? '管理员' : '工人',
+      id: roleIds[selectedRole] || 'WK001',
+      name: roleNames[selectedRole] || '工人',
       role: selectedRole
     }
     app.setUser(userInfo)
-    wx.switchTab({ url: '/pages/repair/repair' })
+    // 复查员默认进入工单列表，工人和管理员进入报修页
+    if (selectedRole === 'inspector') {
+      wx.switchTab({ url: '/pages/orders/orders' })
+    } else {
+      wx.switchTab({ url: '/pages/repair/repair' })
+    }
   }
 })

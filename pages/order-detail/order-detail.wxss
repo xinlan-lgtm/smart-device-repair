@@ -281,3 +281,70 @@
   align-items: center;
   justify-content: center;
 }
+
+/* ===== 复查员按钮 ===== */
+.inspector-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.btn-success {
+  flex: 1;
+  height: 88rpx;
+  background-color: #10B981;
+  color: #FFFFFF;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 16rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-danger {
+  flex: 1;
+  height: 88rpx;
+  background-color: #EF4444;
+  color: #FFFFFF;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 16rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== 打回原因卡片 ===== */
+.return-card {
+  background-color: #FEF2F2;
+  border: 2rpx solid #FECACA;
+}
+
+.return-note {
+  font-size: 28rpx;
+  color: #DC2626;
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+/* ===== 打回弹窗 ===== */
+.return-textarea {
+  width: 100%;
+  min-height: 180rpx;
+  background-color: #F9FAFB;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+  margin-bottom: 8rpx;
+}
+
+.char-count {
+  display: block;
+  text-align: right;
+  font-size: 22rpx;
+  color: #9CA3AF;
+  margin-bottom: 24rpx;
+}

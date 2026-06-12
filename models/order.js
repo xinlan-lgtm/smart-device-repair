@@ -78,6 +78,8 @@ function createOrder(data) {
       workerId: data.workerId || ''
     }],
     processorNote: '',
+    returnNote: '',
+    returnedAt: 0,
     submitterName: data.submitterName,
     submitterId: data.submitterId,
     createdAt: Date.now(),
@@ -103,14 +105,16 @@ function updateOrderStatus(id, status, operator, note) {
 
   orders[index].status = status
   orders[index].updatedAt = Date.now()
-  orders[index].statusLog.push({
+  var logEntry = {
     status: status,
     time: Date.now(),
     operator: operator
-  })
-  if (note !== undefined) {
+  }
+  if (note !== undefined && note !== '') {
+    logEntry.note = note
     orders[index].processorNote = note
   }
+  orders[index].statusLog.push(logEntry)
 
   storage.set(storage.KEYS.ORDERS, orders)
   return orders[index]
@@ -125,6 +129,57 @@ function deleteOrder(id) {
   storage.set(storage.KEYS.ORDERS, filtered)
 }
 
+// 复查员打回重修
+function returnOrder(id, reason, operator) {
+  var orders = getAllOrders()
+  var index = -1
+  for (var i = 0; i < orders.length; i++) {
+    if (orders[i].id === id) {
+      index = i
+      break
+    }
+  }
+  if (index === -1) return null
+
+  orders[index].status = constants.ORDER_STATUS.PROCESSING
+  orders[index].returnNote = reason
+  orders[index].returnedAt = Date.now()
+  orders[index].updatedAt = Date.now()
+  orders[index].statusLog.push({
+    status: constants.ORDER_STATUS.PROCESSING,
+    time: Date.now(),
+    operator: operator,
+    note: '打回原因：' + reason
+  })
+
+  storage.set(storage.KEYS.ORDERS, orders)
+  return orders[index]
+}
+
+// 复查员确认修复完成 → 已验收
+function verifyOrder(id, operator) {
+  var orders = getAllOrders()
+  var index = -1
+  for (var i = 0; i < orders.length; i++) {
+    if (orders[i].id === id) {
+      index = i
+      break
+    }
+  }
+  if (index === -1) return null
+
+  orders[index].status = constants.ORDER_STATUS.VERIFIED
+  orders[index].updatedAt = Date.now()
+  orders[index].statusLog.push({
+    status: constants.ORDER_STATUS.VERIFIED,
+    time: Date.now(),
+    operator: operator
+  })
+
+  storage.set(storage.KEYS.ORDERS, orders)
+  return orders[index]
+}
+
 module.exports = {
   getAllOrders: getAllOrders,
   getMyOrders: getMyOrders,
@@ -132,5 +187,7 @@ module.exports = {
   getOrderById: getOrderById,
   createOrder: createOrder,
   updateOrderStatus: updateOrderStatus,
-  deleteOrder: deleteOrder
+  deleteOrder: deleteOrder,
+  returnOrder: returnOrder,
+  verifyOrder: verifyOrder
 }

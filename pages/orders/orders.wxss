@@ -21,11 +21,22 @@
   font-weight: 500;
 }
 
+.order-badges {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
 .status-badge {
   padding: 4rpx 16rpx;
   font-size: 22rpx;
   border-radius: 8rpx;
   font-weight: 500;
+}
+
+.returned-badge {
+  background-color: #FEE2E2;
+  color: #EF4444;
 }
 
 /* 设备信息 */

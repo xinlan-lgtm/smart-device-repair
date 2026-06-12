@@ -9,16 +9,21 @@ Page({
     orderId: '',
     order: null,
     isAdmin: false,
+    isInspector: false,
     // 状态修改
     showStatusModal: false,
-    selectedStatus: ''
+    selectedStatus: '',
+    // 打回弹窗
+    showReturnModal: false,
+    returnReason: ''
   },
 
   onLoad(options) {
     const { id } = options
     this.setData({
       orderId: id,
-      isAdmin: app.isAdmin()
+      isAdmin: app.isAdmin(),
+      isInspector: app.isInspector()
     })
     this.loadOrderDetail()
   },
@@ -95,6 +100,61 @@ Page({
       this.setData({ showStatusModal: false })
       this.loadOrderDetail()
       wx.showToast({ title: '状态已更新', icon: 'success' })
+    }
+  },
+
+  // 复查员 - 确认修复完成 → 已验收
+  onVerify() {
+    var that = this
+    var userInfo = app.globalData.userInfo
+    var operatorName = (userInfo && userInfo.name) ? userInfo.name : '复查员'
+
+    wx.showModal({
+      title: '确认验收',
+      content: '确认该工单已修复完成？验收后流程结束。',
+      success: function(res) {
+        if (res.confirm) {
+          var updated = orderModel.verifyOrder(that.data.orderId, operatorName)
+          if (updated) {
+            that.loadOrderDetail()
+            wx.showToast({ title: '已验收通过', icon: 'success' })
+          }
+        }
+      }
+    })
+  },
+
+  // 复查员 - 打开打回弹窗
+  onShowReturnModal() {
+    this.setData({ showReturnModal: true, returnReason: '' })
+  },
+
+  // 复查员 - 关闭打回弹窗
+  onCloseReturnModal() {
+    this.setData({ showReturnModal: false })
+  },
+
+  // 复查员 - 打回原因输入
+  onReturnReasonInput(e) {
+    this.setData({ returnReason: e.detail.value })
+  },
+
+  // 复查员 - 确认打回
+  onConfirmReturn() {
+    var that = this
+    var reason = this.data.returnReason.trim()
+    if (!reason) {
+      wx.showToast({ title: '请输入打回原因', icon: 'none' })
+      return
+    }
+    var userInfo = app.globalData.userInfo
+    var operatorName = (userInfo && userInfo.name) ? userInfo.name : '复查员'
+
+    var updated = orderModel.returnOrder(that.data.orderId, reason, operatorName)
+    if (updated) {
+      that.setData({ showReturnModal: false })
+      that.loadOrderDetail()
+      wx.showToast({ title: '已打回重修', icon: 'none' })
     }
   }
 })

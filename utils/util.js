@@ -9,7 +9,7 @@ function generateOrderId(seq) {
     String(now.getDate()).padStart(2, '0')
   ].join('')
   const num = String(seq).padStart(3, '0')
-  return 'WO' + date + num
+  return 'BXD' + date + num
 }
 
 // 格式化时间戳到 yyyy-MM-dd HH:mm

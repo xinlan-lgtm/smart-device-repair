@@ -97,12 +97,18 @@
         <view wx:for="{{order.statusLog}}" wx:key="index" class="timeline-item">
           <view class="timeline-dot"></view>
           <view class="timeline-content">
-            <text class="timeline-status">{{item.status === 'pending' ? '提交报修' : (item.status === 'processing' ? '开始处理' : '处理完成')}}</text>
+            <text class="timeline-status">{{item.status === 'pending' ? '提交报修' : (item.status === 'processing' ? (item.note ? '打回重修' : '开始处理') : (item.status === 'completed' ? '处理完成' : '已验收'))}}</text>
             <text class="timeline-time">{{item.timeText}}</text>
             <text class="timeline-operator">操作人：{{item.operator}}<text wx:if="{{item.workerId}}">（工号：{{item.workerId}}）</text></text>
           </view>
         </view>
       </view>
+    </view>
+
+    <!-- 打回原因（如有） -->
+    <view wx:if="{{order.returnNote}}" class="card return-card">
+      <view class="card-title">🔴 打回原因</view>
+      <text class="return-note">{{order.returnNote}}</text>
     </view>
 
     <!-- 底部时间 -->
@@ -121,6 +127,16 @@
     <view wx:if="{{isAdmin}}" class="action-area">
       <button class="btn-primary" bindtap="onShowStatusModal">
         修改状态
+      </button>
+    </view>
+
+    <!-- 复查员操作按钮（仅"已完成"状态可见） -->
+    <view wx:if="{{isInspector && order.status === 'completed'}}" class="action-area inspector-actions">
+      <button class="btn-success" bindtap="onVerify">
+        确认修复完成
+      </button>
+      <button class="btn-danger" bindtap="onShowReturnModal">
+        打回重修
       </button>
     </view>
   </block>
@@ -155,6 +171,26 @@
       <view class="modal-actions">
         <button class="btn-cancel" bindtap="onCloseStatusModal">取消</button>
         <button class="btn-confirm" bindtap="onConfirmStatus">确认</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打回原因弹窗 -->
+  <view wx:if="{{showReturnModal}}" class="modal-mask" bindtap="onCloseReturnModal">
+    <view class="modal-content" catchtap="prevent">
+      <text class="modal-title">填写打回原因</text>
+      <textarea
+        class="return-textarea"
+        placeholder="请说明打回重修的具体原因..."
+        value="{{returnReason}}"
+        bindinput="onReturnReasonInput"
+        maxlength="200"
+        auto-height
+      />
+      <text class="char-count">{{returnReason.length}}/200</text>
+      <view class="modal-actions">
+        <button class="btn-cancel" bindtap="onCloseReturnModal">取消</button>
+        <button class="btn-confirm" bindtap="onConfirmReturn">确认打回</button>
       </view>
     </view>
   </view>

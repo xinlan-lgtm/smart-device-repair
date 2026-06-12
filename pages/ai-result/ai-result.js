@@ -73,9 +73,24 @@ Page({
       icon: 'success',
       duration: 1500,
       success: function() {
-        // 返回报修页并清空表单 — 通过页面栈操作
+        // 通过页面栈找到repair页面，清空表单数据
         setTimeout(function() {
-          wx.navigateBack({ delta: 2 })
+          var pages = getCurrentPages()
+          // 倒序查找 repair 页面
+          for (var i = pages.length - 2; i >= 0; i--) {
+            if (pages[i].route === 'pages/repair/repair') {
+              pages[i].setData({
+                deviceName: '',
+                deviceCode: '',
+                workerId: '',
+                faultDesc: '',
+                images: [],
+                canSubmit: false
+              })
+              break
+            }
+          }
+          wx.navigateBack()
         }, 1500)
       }
     })

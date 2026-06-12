@@ -1,7 +1,7 @@
 <!-- pages/orders/orders.wxml - 工单列表页 -->
 <view class="page-container">
-  <!-- 状态筛选栏 -->
-  <scroll-view class="filter-tabs" scroll-x>
+  <!-- 状态筛选栏（复查员不显示） -->
+  <scroll-view wx:if="{{!isInspector}}" class="filter-tabs" scroll-x>
     <view
       wx:for="{{statusTabs}}"
       wx:key="key"
@@ -22,11 +22,16 @@
       data-id="{{item.id}}"
       bindtap="onOrderTap"
     >
-      <!-- 卡片头部：工单号 + 状态标签 -->
+      <!-- 卡片头部：工单号 + 状态标签 + 打回标识 -->
       <view class="order-header">
         <text class="order-id">{{item.id}}</text>
-        <view class="status-badge" style="background-color: {{item.statusColor}}20; color: {{item.statusColor}};">
-          {{item.statusLabel}}
+        <view class="order-badges">
+          <view wx:if="{{isAdmin && item.returnNote && item.status === 'processing'}}" class="status-badge returned-badge">
+            已打回
+          </view>
+          <view class="status-badge" style="background-color: {{item.statusColor}}20; color: {{item.statusColor}};">
+            {{item.statusLabel}}
+          </view>
         </view>
       </view>
       <!-- 设备信息 -->
