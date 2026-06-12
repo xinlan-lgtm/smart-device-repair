@@ -123,8 +123,8 @@
       </view>
     </view>
 
-    <!-- 管理员操作按钮 -->
-    <view wx:if="{{isAdmin}}" class="action-area">
+    <!-- 管理员操作按钮（已验收工单不允许修改） -->
+    <view wx:if="{{isAdmin && order.status !== 'verified'}}" class="action-area">
       <button class="btn-primary" bindtap="onShowStatusModal">
         修改状态
       </button>

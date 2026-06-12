@@ -109,14 +109,28 @@ Page({
     }
 
     const { activeTab } = this.data
-    const status = activeTab !== 'all' ? activeTab : null
 
     // 工人只看自己的工单，管理员看全部
     var submitterId = isAdmin ? null : (userInfo ? userInfo.id : null)
 
-    var orders = orderModel.getOrdersByStatus(status, submitterId)
-    var list = this.formatOrderList(orders)
+    // "已完成"Tab包含completed和verified两种状态
+    var orders
+    if (activeTab === 'completed') {
+      orders = orderModel.getAllOrders()
+      orders = orders.filter(function(o) {
+        return o.status === 'completed' || o.status === 'verified'
+      })
+      if (submitterId) {
+        orders = orders.filter(function(o) { return o.submitterId === submitterId })
+      }
+      orders.sort(function(a, b) { return b.createdAt - a.createdAt })
+    } else if (activeTab !== 'all') {
+      orders = orderModel.getOrdersByStatus(activeTab, submitterId)
+    } else {
+      orders = orderModel.getOrdersByStatus(null, submitterId)
+    }
 
+    var list = this.formatOrderList(orders)
     this.setData({ orders: list })
   },
 
