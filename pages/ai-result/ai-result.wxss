@@ -1,0 +1,4 @@
+/* pages/ai-result/ai-result.wxss - AI分析结果页样式 */
+.action-area {
+  padding: 24rpx;
+}

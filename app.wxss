@@ -1,0 +1,160 @@
+/* app.wxss - 全局样式 */
+
+/* ===== 颜色变量（通过注释约定） ===== */
+/*
+  主题蓝: #1A56DB
+  成功绿: #10B981
+  警告橙: #F59E0B
+  危险红: #EF4444
+  主文字: #1F2937
+  次要文字: #6B7280
+  浅灰背景: #F5F7FA
+  白色: #FFFFFF
+  边框色: #E5E7EB
+*/
+
+/* ===== 全局重置 ===== */
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  font-size: 28rpx;
+  color: #1F2937;
+  background-color: #F5F7FA;
+  box-sizing: border-box;
+}
+
+/* ===== 通用工具类 ===== */
+
+/* 主按钮 */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 88rpx;
+  background-color: #1A56DB;
+  color: #FFFFFF;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 16rpx;
+  border: none;
+  margin-top: 20rpx;
+}
+
+.btn-primary:active {
+  opacity: 0.85;
+}
+
+/* 次按钮 */
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 88rpx;
+  background-color: #FFFFFF;
+  color: #1A56DB;
+  font-size: 32rpx;
+  font-weight: 500;
+  border-radius: 16rpx;
+  border: 2rpx solid #1A56DB;
+  margin-top: 20rpx;
+}
+
+/* 禁用按钮 */
+.btn-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* 卡片容器 */
+.card {
+  background-color: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 20rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+/* 页面容器 */
+.page-container {
+  min-height: 100vh;
+  padding-bottom: 40rpx;
+}
+
+/* 筛选标签栏 */
+.filter-tabs {
+  display: flex;
+  background-color: #FFFFFF;
+  padding: 16rpx 24rpx;
+  white-space: nowrap;
+  border-bottom: 1rpx solid #E5E7EB;
+}
+
+.filter-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12rpx 28rpx;
+  font-size: 26rpx;
+  color: #6B7280;
+  border-radius: 32rpx;
+  margin-right: 16rpx;
+  background-color: #F5F7FA;
+  transition: all 0.2s;
+}
+
+.filter-tab.active {
+  color: #FFFFFF;
+  background-color: #1A56DB;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.empty-state image {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 24rpx;
+}
+
+.empty-state text {
+  font-size: 28rpx;
+  color: #9CA3AF;
+}
+
+/* 加载状态 */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60rpx 0;
+}
+
+/* 分隔线 */
+.divider {
+  height: 1rpx;
+  background-color: #E5E7EB;
+  margin: 24rpx 0;
+}
+
+/* 一行文本溢出省略 */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 两行文本溢出省略 */
+.text-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

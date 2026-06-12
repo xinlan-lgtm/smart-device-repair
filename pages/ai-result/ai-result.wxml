@@ -1,0 +1,25 @@
+<!-- pages/ai-result/ai-result.wxml - AI分析结果页 -->
+<view class="page-container">
+  <!-- 加载中 -->
+  <view wx:if="{{!aiResult}}" class="loading-container">
+    <text>分析中...</text>
+  </view>
+
+  <!-- 分析结果 -->
+  <block wx:if="{{aiResult}}">
+    <!-- 故障类型卡片 -->
+    <view class="card">
+      <text>TODO: P4阶段实现AI分析结果展示</text>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-area">
+      <button class="btn-primary" bindtap="onConfirmSubmit" loading="{{submitting}}">
+        确认并提交报修
+      </button>
+      <button class="btn-secondary" bindtap="onBackToEdit">
+        返回修改
+      </button>
+    </view>
+  </block>
+</view>

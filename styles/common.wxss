@@ -1,0 +1,85 @@
+/* styles/common.wxss - 公共样式变量和工具类 */
+/* 各页面使用时: @import "/styles/common.wxss" */
+
+/* ===== 主题色参考 ===== */
+/*
+  主色:       #1A56DB (蓝)
+  成功:       #10B981 (绿)
+  警告:       #F59E0B (橙)
+  危险:       #EF4444 (红)
+  主文字:     #1F2937
+  次要文字:   #6B7280
+  浅灰背景:   #F5F7FA
+  白色:       #FFFFFF
+  边框:       #E5E7EB
+*/
+
+/* ===== 圆角 ===== */
+.radius-sm  { border-radius: 8rpx; }
+.radius-md  { border-radius: 16rpx; }
+.radius-lg  { border-radius: 24rpx; }
+.radius-full { border-radius: 9999rpx; }
+
+/* ===== 间距 ===== */
+.mt-8  { margin-top: 8rpx; }
+.mt-16 { margin-top: 16rpx; }
+.mt-24 { margin-top: 24rpx; }
+.mt-32 { margin-top: 32rpx; }
+.mb-8  { margin-bottom: 8rpx; }
+.mb-16 { margin-bottom: 16rpx; }
+.mb-24 { margin-bottom: 24rpx; }
+.mb-32 { margin-bottom: 32rpx; }
+.p-16 { padding: 16rpx; }
+.p-24 { padding: 24rpx; }
+.p-32 { padding: 32rpx; }
+
+/* ===== 弹性布局 ===== */
+.flex       { display: flex; }
+.flex-col   { display: flex; flex-direction: column; }
+.flex-1     { flex: 1; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-wrap  { flex-wrap: wrap; }
+
+/* ===== 文字 ===== */
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+.text-primary { color: #1A56DB; }
+.text-success { color: #10B981; }
+.text-warning { color: #F59E0B; }
+.text-danger  { color: #EF4444; }
+.text-gray    { color: #6B7280; }
+.text-white   { color: #FFFFFF; }
+.font-bold   { font-weight: 700; }
+.font-medium { font-weight: 500; }
+.text-xs  { font-size: 22rpx; }
+.text-sm  { font-size: 24rpx; }
+.text-base { font-size: 28rpx; }
+.text-lg  { font-size: 32rpx; }
+.text-xl  { font-size: 36rpx; }
+.text-2xl { font-size: 44rpx; }
+
+/* ===== 通用组件 ===== */
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1F2937;
+  padding: 24rpx;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 16rpx;
+  font-size: 22rpx;
+  border-radius: 8rpx;
+}
+
+/* ===== 颜色背景 ===== */
+.bg-primary { background-color: #1A56DB; }
+.bg-success { background-color: #10B981; }
+.bg-warning { background-color: #F59E0B; }
+.bg-danger  { background-color: #EF4444; }
+.bg-white   { background-color: #FFFFFF; }
+.bg-gray    { background-color: #F5F7FA; }

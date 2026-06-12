@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/repair/repair",
+    "pages/orders/orders",
+    "pages/mine/mine",
+    "pages/order-detail/order-detail",
+    "pages/ai-result/ai-result"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1A56DB",
+    "navigationBarTitleText": "智能设备报修系统",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F7FA",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#1A56DB",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/repair/repair",
+        "text": "报修",
+        "iconPath": "images/icons/repair.png",
+        "selectedIconPath": "images/icons/repair-active.png"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "工单",
+        "iconPath": "images/icons/orders.png",
+        "selectedIconPath": "images/icons/orders-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/icons/mine.png",
+        "selectedIconPath": "images/icons/mine-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,4 @@
+/* pages/order-detail/order-detail.wxss - 工单详情页样式 */
+.action-area {
+  padding: 24rpx;
+}

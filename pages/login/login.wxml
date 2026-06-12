@@ -1,0 +1,35 @@
+<!-- pages/login/login.wxml - 角色选择页 -->
+<view class="login-page">
+  <view class="login-header">
+    <text class="login-title">智能设备报修系统</text>
+    <text class="login-subtitle">请选择您的身份</text>
+  </view>
+
+  <view class="role-cards">
+    <view
+      class="role-card {{selectedRole === 'worker' ? 'active' : ''}}"
+      data-role="worker"
+      bindtap="onRoleSelect"
+    >
+      <view class="role-icon">👷</view>
+      <text class="role-name">工人</text>
+      <text class="role-desc">提交设备故障报修</text>
+    </view>
+
+    <view
+      class="role-card {{selectedRole === 'admin' ? 'active' : ''}}"
+      data-role="admin"
+      bindtap="onRoleSelect"
+    >
+      <view class="role-icon">🔧</view>
+      <text class="role-name">管理员</text>
+      <text class="role-desc">管理工单与维修调度</text>
+    </view>
+  </view>
+
+  <view class="login-btn-area">
+    <button class="btn-primary" bindtap="onConfirm" disabled="{{!selectedRole}}">
+      确认进入
+    </button>
+  </view>
+</view>

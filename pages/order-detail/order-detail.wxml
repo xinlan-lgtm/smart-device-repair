@@ -1,0 +1,30 @@
+<!-- pages/order-detail/order-detail.wxml - 工单详情页 -->
+<view class="page-container">
+  <!-- 加载状态 -->
+  <view wx:if="{{!order}}" class="loading-container">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 工单详情内容 -->
+  <block wx:if="{{order}}">
+    <!-- 设备信息 -->
+    <view class="card">
+      <text>TODO: P6阶段实现工单详情展示</text>
+    </view>
+
+    <!-- AI分析结果卡片 -->
+    <view class="card">
+      <text>TODO: AI分析结果展示</text>
+    </view>
+
+    <!-- 管理员操作按钮 -->
+    <view wx:if="{{isAdmin}}" class="action-area">
+      <button class="btn-primary" bindtap="onShowStatusModal">
+        修改状态
+      </button>
+    </view>
+  </block>
+
+  <!-- 状态修改弹窗 -->
+  <!-- TODO: P6阶段实现状态修改弹窗 -->
+</view>

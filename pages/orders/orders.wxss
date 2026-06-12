@@ -1,0 +1,8 @@
+/* pages/orders/orders.wxss - 工单列表页样式 */
+.filter-tabs {
+  padding: 20rpx 24rpx;
+}
+
+.order-card {
+  position: relative;
+}

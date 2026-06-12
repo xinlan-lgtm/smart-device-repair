@@ -1,0 +1,40 @@
+<!-- pages/orders/orders.wxml - 工单列表页 -->
+<view class="page-container">
+  <!-- 状态筛选栏 -->
+  <scroll-view class="filter-tabs" scroll-x>
+    <view
+      wx:for="{{statusTabs}}"
+      wx:key="key"
+      class="filter-tab {{activeTab === item.key ? 'active' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="onTabChange"
+    >
+      {{item.label}}
+    </view>
+  </scroll-view>
+
+  <!-- 工单列表 -->
+  <block wx:if="{{!loading && orders.length > 0}}">
+    <view
+      wx:for="{{orders}}"
+      wx:key="id"
+      class="card order-card"
+      data-id="{{item.id}}"
+      bindtap="onOrderTap"
+    >
+      <!-- TODO: P5阶段使用 order-card 组件 -->
+      <text>工单卡片（待P5实现）</text>
+    </view>
+  </block>
+
+  <!-- 空状态 -->
+  <view wx:if="{{!loading && orders.length === 0}}" class="empty-state">
+    <text>📋</text>
+    <text>暂无工单</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="loading-container">
+    <text>加载中...</text>
+  </view>
+</view>

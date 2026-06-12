@@ -1,0 +1,125 @@
+/* pages/repair/repair.wxss - 提交报修页样式 */
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1F2937;
+  margin-bottom: 24rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 1rpx solid #F3F4F6;
+}
+
+.form-item {
+  margin-bottom: 20rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  color: #4B5563;
+  margin-bottom: 12rpx;
+}
+
+.required {
+  color: #EF4444;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  background-color: #F9FAFB;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 180rpx;
+  background-color: #F9FAFB;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.char-count {
+  display: block;
+  text-align: right;
+  font-size: 22rpx;
+  color: #9CA3AF;
+  margin-top: 8rpx;
+}
+
+/* 图片网格 */
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.image-item {
+  position: relative;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.image-item image {
+  width: 100%;
+  height: 100%;
+}
+
+.image-delete {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+  width: 44rpx;
+  height: 44rpx;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-delete text {
+  color: #FFFFFF;
+  font-size: 24rpx;
+}
+
+.image-add {
+  width: 200rpx;
+  height: 200rpx;
+  background-color: #F9FAFB;
+  border: 2rpx dashed #D1D5DB;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-icon {
+  font-size: 56rpx;
+  color: #9CA3AF;
+  line-height: 1;
+}
+
+.add-text {
+  font-size: 22rpx;
+  color: #9CA3AF;
+  margin-top: 8rpx;
+}
+
+.image-hint {
+  display: block;
+  font-size: 22rpx;
+  color: #9CA3AF;
+  margin-top: 16rpx;
+}
+
+.action-area {
+  padding: 24rpx;
+}

@@ -1,0 +1,81 @@
+<!-- pages/repair/repair.wxml - 提交报修页 -->
+<view class="page-container">
+  <!-- 设备信息区域 -->
+  <view class="card">
+    <view class="card-title">设备信息</view>
+    <view class="form-item">
+      <text class="form-label">设备名称 <text class="required">*</text></text>
+      <input
+        class="form-input"
+        placeholder="请输入设备名称，如：冲压机A-03"
+        value="{{deviceName}}"
+        bindinput="onDeviceNameInput"
+      />
+    </view>
+    <view class="form-item">
+      <text class="form-label">设备编号 <text class="required">*</text></text>
+      <input
+        class="form-input"
+        placeholder="请输入设备编号"
+        value="{{deviceCode}}"
+        bindinput="onDeviceCodeInput"
+      />
+    </view>
+  </view>
+
+  <!-- 故障描述区域 -->
+  <view class="card">
+    <view class="card-title">故障描述</view>
+    <view class="form-item">
+      <text class="form-label">故障说明 <text class="required">*</text></text>
+      <textarea
+        class="form-textarea"
+        placeholder="请详细描述设备故障现象..."
+        value="{{faultDesc}}"
+        bindinput="onFaultDescInput"
+        maxlength="500"
+        auto-height
+      />
+      <text class="char-count">{{faultDesc.length}}/500</text>
+    </view>
+  </view>
+
+  <!-- 拍照区域 -->
+  <view class="card">
+    <view class="card-title">现场照片 <text class="required">*</text></view>
+    <view class="image-grid">
+      <block wx:for="{{images}}" wx:key="index">
+        <view class="image-item">
+          <image
+            src="{{item}}"
+            mode="aspectFill"
+            data-url="{{item}}"
+            bindtap="onPreviewImage"
+          />
+          <view class="image-delete" data-index="{{index}}" bindtap="onRemoveImage">
+            <text>✕</text>
+          </view>
+        </view>
+      </block>
+      <view
+        class="image-add"
+        wx:if="{{images.length < 3}}"
+        bindtap="onChooseImage"
+      >
+        <text class="add-icon">+</text>
+        <text class="add-text">拍照/相册</text>
+      </view>
+    </view>
+    <text class="image-hint">最多上传3张，建议拍摄故障部位特写</text>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-area">
+    <button class="btn-secondary" bindtap="onAIAnalyze" disabled="{{!canSubmit}}">
+      🤖 AI智能分析
+    </button>
+    <button class="btn-primary" bindtap="onSubmit" disabled="{{!canSubmit}}">
+      直接提交报修
+    </button>
+  </view>
+</view>
