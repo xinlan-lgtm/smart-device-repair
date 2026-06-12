@@ -4,7 +4,8 @@ const app = getApp()
 Page({
   data: {
     userInfo: null,
-    isAdmin: false
+    isAdmin: false,
+    isInspector: false
   },
 
   onLoad() {
@@ -16,10 +17,11 @@ Page({
   },
 
   loadUserInfo() {
-    const userInfo = app.globalData.userInfo
+    var userInfo = app.globalData.userInfo
     this.setData({
       userInfo: userInfo,
-      isAdmin: app.isAdmin()
+      isAdmin: app.isAdmin(),
+      isInspector: app.isInspector()
     })
   },
 
