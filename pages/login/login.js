@@ -34,11 +34,6 @@ Page({
       role: selectedRole
     }
     app.setUser(userInfo)
-    // 复查员默认进入工单列表，工人和管理员进入报修页
-    if (selectedRole === 'inspector') {
-      wx.switchTab({ url: '/pages/orders/orders' })
-    } else {
-      wx.switchTab({ url: '/pages/repair/repair' })
-    }
+    wx.switchTab({ url: '/pages/repair/repair' })
   }
 })

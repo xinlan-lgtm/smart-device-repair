@@ -1,6 +1,19 @@
 <!-- pages/orders/orders.wxml - 工单列表页 -->
 <view class="page-container">
-  <!-- 状态筛选栏（复查员不显示） -->
+  <!-- 复查员专用Tab -->
+  <view wx:if="{{isInspector}}" class="filter-tabs">
+    <view
+      wx:for="{{inspectorTabs}}"
+      wx:key="key"
+      class="filter-tab {{inspectorActiveTab === item.key ? 'active' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="onInspectorTabChange"
+    >
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 状态筛选栏（工人/管理员） -->
   <scroll-view wx:if="{{!isInspector}}" class="filter-tabs" scroll-x>
     <view
       wx:for="{{statusTabs}}"
