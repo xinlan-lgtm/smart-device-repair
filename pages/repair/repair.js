@@ -1,6 +1,7 @@
 // pages/repair/repair.js - 提交报修页（工人端）
 const app = getApp()
 const orderModel = require('../../models/order')
+const api = require('../../utils/api')
 
 Page({
   data: {
@@ -96,9 +97,40 @@ Page({
   onAIAnalyze() {
     if (!this.data.canSubmit) return
     this.setData({ analyzing: true })
-    // TODO: P4阶段实现 - 调用 DeepSeek API
-    wx.showToast({ title: 'AI分析功能即将上线', icon: 'none' })
-    this.setData({ analyzing: false })
+
+    var that = this
+    var deviceName = this.data.deviceName.trim()
+    var deviceCode = this.data.deviceCode.trim()
+    var faultDesc = this.data.faultDesc.trim()
+
+    // 调用DeepSeek API进行文本分析
+    api.analyzeFaultByText(deviceName, deviceCode, faultDesc)
+      .then(function(result) {
+        that.setData({ analyzing: false, aiResult: result })
+
+        // 准备跳转参数
+        var aiResultStr = encodeURIComponent(JSON.stringify(result))
+        var repairData = {
+          deviceName: deviceName,
+          deviceCode: deviceCode,
+          workerId: that.data.workerId.trim(),
+          faultDesc: faultDesc,
+          images: that.data.images
+        }
+        var repairDataStr = encodeURIComponent(JSON.stringify(repairData))
+
+        wx.navigateTo({
+          url: '/pages/ai-result/ai-result?aiResult=' + aiResultStr + '&repairData=' + repairDataStr
+        })
+      })
+      .catch(function(err) {
+        that.setData({ analyzing: false })
+        wx.showModal({
+          title: 'AI分析失败',
+          content: err.message,
+          showCancel: false
+        })
+      })
   },
 
   // 直接提交（跳过AI分析）

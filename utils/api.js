@@ -85,6 +85,61 @@ function buildMessages(base64Images, description) {
   ]
 }
 
+// 纯文本故障分析（不需要图片）
+function analyzeFaultByText(deviceName, deviceCode, faultDesc) {
+  return new Promise(function(resolve, reject) {
+    var prompt = '设备名称：' + deviceName + '\n设备编号：' + deviceCode + '\n故障描述：' + faultDesc
+
+    var messages = [
+      {
+        role: 'system',
+        content: '你是一位经验丰富的工厂设备维修专家。请根据提供的设备故障信息进行专业分析。请严格按照JSON格式返回，不要包含任何其他文字。JSON格式：{"faultType":"故障类型","urgency":"紧急程度","suggestion":"维修建议","confidence":置信度}。紧急程度可选：低、中、高、紧急。置信度为0-1之间的数字。'
+      },
+      {
+        role: 'user',
+        content: '请分析以下设备故障：\n' + prompt
+      }
+    ]
+
+    wx.request({
+      url: constants.DEEPSEEK_CONFIG.BASE_URL + '/chat/completions',
+      method: 'POST',
+      timeout: 30000,
+      header: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + constants.DEEPSEEK_CONFIG.API_KEY
+      },
+      data: {
+        model: constants.DEEPSEEK_CONFIG.MODEL,
+        messages: messages,
+        temperature: 0.3,
+        max_tokens: 1000
+      },
+      success: function(res) {
+        if (res.statusCode === 200) {
+          try {
+            var content = res.data.choices[0].message.content
+            var jsonStr = content
+              .replace(/```json\n?/g, '')
+              .replace(/```\n?/g, '')
+              .trim()
+            var result = JSON.parse(jsonStr)
+            resolve(result)
+          } catch (e) {
+            reject(new Error('AI返回结果解析失败'))
+          }
+        } else {
+          reject(new Error('API请求失败: ' + res.statusCode))
+        }
+      },
+      fail: function(err) {
+        reject(new Error('网络请求失败: ' + err.errMsg))
+      }
+    })
+  })
+}
+
 module.exports = {
-  analyzeFault: analyzeFault
+  analyzeFault: analyzeFault,
+  analyzeFaultByText: analyzeFaultByText
 }

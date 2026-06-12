@@ -1,5 +1,7 @@
 // pages/ai-result/ai-result.js - AI分析结果页
 const app = getApp()
+const orderModel = require('../../models/order')
+const constants = require('../../utils/constants')
 
 Page({
   data: {
@@ -12,19 +14,22 @@ Page({
   },
 
   onLoad(options) {
-    // 接收从repair页传来的AI分析结果和报修数据
-    // TODO: P4阶段实现 - 解析传入的数据
-    const { aiResult, repairData } = options
-    if (aiResult) {
+    // 解析传入的AI分析结果和报修数据
+    if (options.aiResult) {
       try {
-        this.setData({ aiResult: JSON.parse(decodeURIComponent(aiResult)) })
+        var aiResult = JSON.parse(decodeURIComponent(options.aiResult))
+        // 附加颜色和显示文本
+        aiResult.urgencyColor = constants.URGENCY_COLOR[aiResult.urgency] || '#999'
+        aiResult.confidencePercent = Math.round((aiResult.confidence || 0) * 100)
+        this.setData({ aiResult: aiResult })
       } catch (e) {
         console.error('AI结果解析失败', e)
+        wx.showToast({ title: '数据解析失败', icon: 'none' })
       }
     }
-    if (repairData) {
+    if (options.repairData) {
       try {
-        this.setData({ repairData: JSON.parse(decodeURIComponent(repairData)) })
+        this.setData({ repairData: JSON.parse(decodeURIComponent(options.repairData)) })
       } catch (e) {
         console.error('报修数据解析失败', e)
       }
@@ -33,10 +38,47 @@ Page({
 
   // 确认并提交工单
   onConfirmSubmit() {
+    var that = this
     this.setData({ submitting: true })
-    // TODO: P4阶段实现 - 将AI分析结果和报修数据合并保存
-    wx.showToast({ title: '提交功能即将上线', icon: 'none' })
-    this.setData({ submitting: false })
+
+    var userInfo = app.globalData.userInfo
+    if (!userInfo) {
+      wx.showToast({ title: '请先选择身份', icon: 'none' })
+      this.setData({ submitting: false })
+      return
+    }
+
+    var repairData = this.data.repairData
+    var aiResult = this.data.aiResult
+
+    // 创建工单，附带AI分析结果
+    orderModel.createOrder({
+      deviceName: repairData.deviceName,
+      deviceCode: repairData.deviceCode,
+      workerId: repairData.workerId,
+      faultDesc: repairData.faultDesc,
+      images: repairData.images,
+      submitterName: userInfo.name,
+      submitterId: userInfo.id,
+      aiFaultType: aiResult.faultType || '',
+      aiUrgency: aiResult.urgency || '',
+      aiSuggestion: aiResult.suggestion || '',
+      aiConfidence: aiResult.confidence || 0
+    })
+
+    that.setData({ submitting: false })
+
+    wx.showToast({
+      title: '报修提交成功',
+      icon: 'success',
+      duration: 1500,
+      success: function() {
+        // 返回报修页并清空表单 — 通过页面栈操作
+        setTimeout(function() {
+          wx.navigateBack({ delta: 2 })
+        }, 1500)
+      }
+    })
   },
 
   // 返回修改

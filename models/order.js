@@ -74,7 +74,8 @@ function createOrder(data) {
     statusLog: [{
       status: constants.ORDER_STATUS.PENDING,
       time: Date.now(),
-      operator: data.submitterName
+      operator: data.submitterName,
+      workerId: data.workerId || ''
     }],
     processorNote: '',
     submitterName: data.submitterName,

@@ -2,14 +2,60 @@
 <view class="page-container">
   <!-- 加载中 -->
   <view wx:if="{{!aiResult}}" class="loading-container">
-    <text>分析中...</text>
+    <text>AI分析中，请稍候...</text>
   </view>
 
   <!-- 分析结果 -->
   <block wx:if="{{aiResult}}">
-    <!-- 故障类型卡片 -->
+    <!-- 结果头部 -->
+    <view class="card result-header">
+      <text class="result-icon">🤖</text>
+      <text class="result-title">AI 智能分析结果</text>
+      <text class="result-subtitle">DeepSeek 大模型分析</text>
+    </view>
+
+    <!-- 故障类型 -->
     <view class="card">
-      <text>TODO: P4阶段实现AI分析结果展示</text>
+      <view class="card-title">故障类型</view>
+      <text class="fault-type">{{aiResult.faultType}}</text>
+    </view>
+
+    <!-- 紧急程度 -->
+    <view class="card">
+      <view class="card-title">紧急程度</view>
+      <view class="urgency-row">
+        <view class="urgency-badge" style="background-color: {{aiResult.urgencyColor}}20; color: {{aiResult.urgencyColor}}; border: 2rpx solid {{aiResult.urgencyColor}};">
+          {{aiResult.urgency}}
+        </view>
+        <text class="confidence-text">置信度：{{aiResult.confidencePercent}}%</text>
+      </view>
+    </view>
+
+    <!-- 维修建议 -->
+    <view class="card">
+      <view class="card-title">维修建议</view>
+      <text class="suggestion-text">{{aiResult.suggestion}}</text>
+    </view>
+
+    <!-- 报修信息摘要 -->
+    <view wx:if="{{repairData}}" class="card summary-card">
+      <view class="card-title">报修信息确认</view>
+      <view class="summary-item">
+        <text class="summary-label">设备名称</text>
+        <text class="summary-value">{{repairData.deviceName}}</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-label">设备编号</text>
+        <text class="summary-value">{{repairData.deviceCode}}</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-label">工号</text>
+        <text class="summary-value">{{repairData.workerId}}</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-label">故障描述</text>
+        <text class="summary-value summary-desc">{{repairData.faultDesc}}</text>
+      </view>
     </view>
 
     <!-- 操作按钮 -->

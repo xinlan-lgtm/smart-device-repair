@@ -35,7 +35,7 @@ const DEEPSEEK_CONFIG = {
   BASE_URL: 'https://api.deepseek.com',
   MODEL: 'deepseek-chat',
   // API Key - 生产环境请勿将Key写在前端代码中
-  API_KEY: 'sk-b5a1b0c04d3d481783896b010837bcfa'
+  API_KEY: 'sk-cbf4c94ece354b46b73fe79dcb2a3dfe'
 }
 
 // 图片上传限制

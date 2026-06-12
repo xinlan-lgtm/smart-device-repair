@@ -39,7 +39,7 @@
       <!-- 底部：时间 -->
       <view class="order-footer">
         <text class="order-time">{{item.timeText}}</text>
-        <text class="order-arrow">&gt;</text>
+        <text class="order-arrow">›</text>
       </view>
     </view>
   </block>

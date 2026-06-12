@@ -99,7 +99,7 @@
           <view class="timeline-content">
             <text class="timeline-status">{{item.status === 'pending' ? '提交报修' : (item.status === 'processing' ? '开始处理' : '处理完成')}}</text>
             <text class="timeline-time">{{item.timeText}}</text>
-            <text class="timeline-operator">操作人：{{item.operator}}</text>
+            <text class="timeline-operator">操作人：{{item.operator}}<text wx:if="{{item.workerId}}">（工号：{{item.workerId}}）</text></text>
           </view>
         </view>
       </view>
