@@ -2,3 +2,5 @@ node_modules/
 .claude/
 project.private.config.json
 utils/constants.js
+*.docx
+~$*
